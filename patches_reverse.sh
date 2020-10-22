@@ -17,8 +17,7 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
-
-clear_set vendor/lineage
+echo "Nothing to do"
 
 cd $THISDIR
 

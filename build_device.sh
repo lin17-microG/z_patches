@@ -47,7 +47,7 @@ export KBUILD_BUILD_HOST=localhost
 #start build
 if [ "$TESTKEY" = false ] ; then
   export OWN_KEYS_DIR=~/.android-certs
-  export RELEASE_TYPE=UNOFFICIAL-signed
+  export RELEASE_TYPE=UNOFFICIAL-microG-signed
 
   # We need symlinks to fake the existence of a testkey
   # for the selinux build process
