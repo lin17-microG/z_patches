@@ -1,0 +1,29 @@
+From 1ff643908368e872cf050a49544b4425bb904839 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Tue, 21 Feb 2017 02:18:13 -0500
+Subject: [PATCH] disable location tagging by default
+
+Change-Id: I33ceecbba86b6f62ffd26ee99b3e17fadff05e20
+---
+ src/com/android/camera/settings/Keys.java | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/com/android/camera/settings/Keys.java b/src/com/android/camera/settings/Keys.java
+index f59591f84..b34405125 100644
+--- a/src/com/android/camera/settings/Keys.java
++++ b/src/com/android/camera/settings/Keys.java
+@@ -182,6 +182,11 @@ public class Keys {
+ 
+         settingsManager.setDefaults(KEY_SHOULD_SHOW_SETTINGS_BUTTON_CLING, true);
+ 
++        settingsManager.setDefaults(KEY_RECORD_LOCATION, false);
++        if (!settingsManager.isSet(SettingsManager.SCOPE_GLOBAL, KEY_RECORD_LOCATION)) {
++            settingsManager.setToDefault(SettingsManager.SCOPE_GLOBAL, KEY_RECORD_LOCATION);
++        }
++
+     }
+ 
+     /** Helper functions for some defined keys. */
+-- 
+2.11.0
+

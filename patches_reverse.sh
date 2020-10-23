@@ -17,7 +17,7 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
-echo "Nothing to do"
+clear_set packages/apps/Camera2
 
 cd $THISDIR
 
