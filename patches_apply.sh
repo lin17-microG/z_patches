@@ -11,6 +11,12 @@ patch -p1 < $THISDIR/patch_100_Camera2.patch
 echo "-"
 cd $TOPDIR
 
+cd packages/apps/Dialer
+echo "Patching $PWD (Remove Google backup/lookup)"
+patch -p1 < $THISDIR/patch_101_Dialer.patch
+echo "-"
+cd $TOPDIR
+
 cd $THISDIR
 
 
