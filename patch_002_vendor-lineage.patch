@@ -39,7 +39,7 @@ index 837e11ef..f6c10f3c 100644
  PRODUCT_BRAND ?= LineageOS
  
  PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-@@ -275,11 +283,6 @@ ifndef LINEAGE_BUILDTYPE
+@@ -211,11 +219,6 @@ ifndef LINEAGE_BUILDTYPE
      endif
  endif
  
