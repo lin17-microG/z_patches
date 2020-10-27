@@ -1,0 +1,26 @@
+From c36a8e71f8ab3ba2621fcb3d7641e9422246a26d Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: I9a7dbf0cc68fec8ca17cff3a0c71eaab5e6df1e6
+---
+ jni/android_hardware_fm.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/jni/android_hardware_fm.cpp b/jni/android_hardware_fm.cpp
+index 93459fc..ab7685a 100644
+--- a/jni/android_hardware_fm.cpp
++++ b/jni/android_hardware_fm.cpp
+@@ -1680,7 +1680,7 @@ static void cleanupNative(JNIEnv *env __unused, jobject object __unused) {
+ /*
+  * JNI registration.
+  */
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+         /* name, signature, funcPtr */
+         { "classInitNative", "()V", (void*)classInitNative},
+         { "initNative", "()V", (void*)initNative},
+-- 
+2.11.0
+
