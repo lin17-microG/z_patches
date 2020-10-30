@@ -1,0 +1,29 @@
+From 905f7e1a5564b0261b5f9b867892b837dc552c69 Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Fri, 30 Oct 2020 14:56:28 +0100
+Subject: [PATCH] SetupWizard: Suggest disabled Metrics by default
+
+Change-Id: I532979810305b8aa18eecda5cd72f29e3635ada9
+---
+ src/org/lineageos/setupwizard/LineageSettingsActivity.java | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/src/org/lineageos/setupwizard/LineageSettingsActivity.java b/src/org/lineageos/setupwizard/LineageSettingsActivity.java
+index dfe4bde..1021220 100644
+--- a/src/org/lineageos/setupwizard/LineageSettingsActivity.java
++++ b/src/org/lineageos/setupwizard/LineageSettingsActivity.java
+@@ -166,9 +166,8 @@ public class LineageSettingsActivity extends BaseSetupWizardActivity {
+ 
+     private void updateMetricsOption() {
+         final Bundle myPageBundle = mSetupWizardApp.getSettingsBundle();
+-        boolean metricsChecked =
+-                !myPageBundle.containsKey(KEY_SEND_METRICS) || myPageBundle
+-                        .getBoolean(KEY_SEND_METRICS);
++        boolean metricsChecked = myPageBundle.containsKey(KEY_SEND_METRICS) ?
++                myPageBundle.getBoolean(KEY_SEND_METRICS) : false;
+         mMetrics.setChecked(metricsChecked);
+         myPageBundle.putBoolean(KEY_SEND_METRICS, metricsChecked);
+     }
+-- 
+2.11.0
+

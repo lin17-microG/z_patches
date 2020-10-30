@@ -43,6 +43,13 @@ patch -p1 < $THISDIR/patch_101_Dialer.patch
 echo "-"
 cd $TOPDIR
 
+cd packages/apps/SetupWizard
+echo "Patching $PWD (Suggest disabled metrics by default)"
+patch -p1 < $THISDIR/patch_102_SetupWizard.patch
+echo "-"
+cd $TOPDIR
+
+
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)
   PTC=$(echo $STR | cut -f2 -d:)

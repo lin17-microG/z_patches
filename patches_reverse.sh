@@ -20,6 +20,7 @@ TOPDIR=$PWD
 clear_set device/common
 clear_set packages/apps/Camera2
 clear_set packages/apps/Dialer
+clear_set packages/apps/SetupWizard
 clear_set external/ant-wireless/ant_native
 clear_set external/conscrypt
 clear_set external/neven
