@@ -1,0 +1,97 @@
+From bc6cede5d12ebadbb95cec847a2d7ee4de9cfa3c Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Mon, 2 Nov 2020 20:30:16 +0100
+Subject: [PATCH] Trebuchet Launcher: Add Bromite to 'Hot seat'
+
+Change-Id: Id5676408f5f97dc01f1c37b9e56ec6b018be4f7c
+---
+ res/xml/default_workspace_4x5.xml | 5 +++--
+ res/xml/default_workspace_5x5.xml | 5 +++--
+ res/xml/default_workspace_5x6.xml | 5 +++--
+ res/xml/default_workspace_5x7.xml | 5 +++--
+ res/xml/default_workspace_6x6.xml | 5 +++--
+ 5 files changed, 15 insertions(+), 10 deletions(-)
+
+diff --git a/res/xml/default_workspace_4x5.xml b/res/xml/default_workspace_4x5.xml
+index 347aae038..7a55ae20b 100644
+--- a/res/xml/default_workspace_4x5.xml
++++ b/res/xml/default_workspace_4x5.xml
+@@ -53,8 +53,9 @@
+          launcher:screen="3"
+          launcher:x="3"
+          launcher:y="0" >
+-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+-        <favorite launcher:uri="http://www.example.com/" />
++        <favorite
++            launcher:packageName="org.bromite.bromite"
++            launcher:className="com.google.android.apps.chrome.Main" />
+     </resolve>
+ 
+     <resolve
+diff --git a/res/xml/default_workspace_5x5.xml b/res/xml/default_workspace_5x5.xml
+index 88ea47550..842c516a2 100644
+--- a/res/xml/default_workspace_5x5.xml
++++ b/res/xml/default_workspace_5x5.xml
+@@ -53,8 +53,9 @@
+         launcher:screen="3"
+         launcher:x="3"
+         launcher:y="0" >
+-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+-        <favorite launcher:uri="http://www.example.com/" />
++        <favorite
++            launcher:packageName="org.bromite.bromite"
++            launcher:className="com.google.android.apps.chrome.Main" />
+     </resolve>
+ 
+     <resolve
+diff --git a/res/xml/default_workspace_5x6.xml b/res/xml/default_workspace_5x6.xml
+index 9bb6447bd..a4a97c8a6 100644
+--- a/res/xml/default_workspace_5x6.xml
++++ b/res/xml/default_workspace_5x6.xml
+@@ -53,8 +53,9 @@
+         launcher:screen="3"
+         launcher:x="3"
+         launcher:y="0" >
+-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+-        <favorite launcher:uri="http://www.example.com/" />
++        <favorite
++            launcher:packageName="org.bromite.bromite"
++            launcher:className="com.google.android.apps.chrome.Main" />
+     </resolve>
+ 
+     <resolve
+diff --git a/res/xml/default_workspace_5x7.xml b/res/xml/default_workspace_5x7.xml
+index e0841383f..e8b68be8f 100644
+--- a/res/xml/default_workspace_5x7.xml
++++ b/res/xml/default_workspace_5x7.xml
+@@ -53,8 +53,9 @@
+         launcher:screen="3"
+         launcher:x="3"
+         launcher:y="0" >
+-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+-        <favorite launcher:uri="http://www.example.com/" />
++        <favorite
++            launcher:packageName="org.bromite.bromite"
++            launcher:className="com.google.android.apps.chrome.Main" />
+     </resolve>
+ 
+     <resolve
+diff --git a/res/xml/default_workspace_6x6.xml b/res/xml/default_workspace_6x6.xml
+index 14fa6b234..fd7f6831a 100644
+--- a/res/xml/default_workspace_6x6.xml
++++ b/res/xml/default_workspace_6x6.xml
+@@ -53,8 +53,9 @@
+         launcher:screen="3"
+         launcher:x="3"
+         launcher:y="0" >
+-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+-        <favorite launcher:uri="http://www.example.com/" />
++        <favorite
++            launcher:packageName="org.bromite.bromite"
++            launcher:className="com.google.android.apps.chrome.Main" />
+     </resolve>
+ 
+     <resolve
+-- 
+2.11.0
+

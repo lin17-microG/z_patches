@@ -49,6 +49,12 @@ patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
 
+cd packages/apps/Trebuchet
+echo "Patching $PWD (Add Bromite to 'hot seat')"
+patch -p1 < $THISDIR/patch_103_Trebuchet.patch
+echo "-"
+cd $TOPDIR
+
 
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)
