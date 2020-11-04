@@ -43,6 +43,8 @@ export CCACHE_EXEC=/usr/bin/ccache
 # Normalize build metadata
 export KBUILD_BUILD_USER=android
 export KBUILD_BUILD_HOST=localhost
+export BUILD_USERNAME=android
+export BUILD_HOSTNAME=localhost
 
 #start build
 if [ "$TESTKEY" = false ] ; then
