@@ -17,14 +17,14 @@ symlink is created accordingly
 
 Change-Id: I4b8b26ef3f6d54f7d4ee1c570c1737779b6b8884
 ---
- config/common.mk | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ config/common.mk | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/config/common.mk b/config/common.mk
 index 837e11ef..f6c10f3c 100644
 --- a/config/common.mk
 +++ b/config/common.mk
-@@ -1,6 +1,14 @@
+@@ -1,6 +1,13 @@
  # Allow vendor/extra to override any property by setting it first
  $(call inherit-product-if-exists, vendor/extra/product.mk)
  
@@ -33,7 +33,6 @@ index 837e11ef..f6c10f3c 100644
 +$(shell ln -sf $(OWN_KEYS_DIR) user-keys)
 +PRODUCT_DEFAULT_DEV_CERTIFICATE := user-keys/releasekey
 +PRODUCT_OTA_PUBLIC_KEYS := user-keys/releasekey
-+PRODUCT_EXTRA_RECOVERY_KEYS := user-keys/releasekey
 +endif
 +
  PRODUCT_BRAND ?= LineageOS
