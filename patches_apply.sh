@@ -56,6 +56,19 @@ echo "-"
 cd $TOPDIR
 
 
+cd external/openssh
+echo "Patching $PWD (hardened malloc compatibility fix)"
+patch -p1 < $THISDIR/patch_200_openssh.patch
+echo "-"
+cd $TOPDIR
+
+cd system/bt
+echo "Patching $PWD (hardened malloc alloc site attributes)"
+patch -p1 < $THISDIR/patch_201_bt.patch
+echo "-"
+cd $TOPDIR
+
+
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)
   PTC=$(echo $STR | cut -f2 -d:)

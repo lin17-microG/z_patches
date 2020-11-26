@@ -23,6 +23,9 @@ clear_set packages/apps/Dialer
 clear_set packages/apps/SetupWizard
 clear_set packages/apps/Trebuchet
 
+clear_set external/openssh
+clear_set system/bt
+
 clear_set external/ant-wireless/ant_native
 clear_set external/conscrypt
 clear_set external/neven
