@@ -24,6 +24,7 @@ clear_set packages/apps/SetupWizard
 clear_set packages/apps/Trebuchet
 
 clear_set external/openssh
+clear_set system/bpf
 clear_set system/bt
 
 clear_set external/ant-wireless/ant_native

@@ -68,6 +68,12 @@ patch -p1 < $THISDIR/patch_201_bt.patch
 echo "-"
 cd $TOPDIR
 
+cd system/bpf
+echo "Patching $PWD (fix broken double close in BpfMapTest.cpp)"
+patch -p1 < $THISDIR/patch_300_bpf.patch
+echo "-"
+cd $TOPDIR
+
 cd system/extras
 echo "Patching $PWD (fscrypt: pad filenames to 32 bytes)"
 patch -p1 < $THISDIR/patch_202_extras.patch

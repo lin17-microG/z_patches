@@ -1,0 +1,166 @@
+From 1fb95a3738044defa43d4513fd2b121f59a8d58b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
+Date: Fri, 9 Aug 2019 18:20:26 -0700
+Subject: [PATCH] fix broken double close in BpfMapTest.cpp
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Bug: 139175951
+Bug: 139205160
+Test: atest libbpf_android_test
+Signed-off-by: Maciej Żenczykowski <maze@google.com>
+Change-Id: I911ce9276e5f8b2278e459b5b11be8e7ccb3632f
+---
+ libbpf_android/BpfMapTest.cpp       | 37 +++++++++++++++++------------
+ libbpf_android/include/bpf/BpfMap.h | 13 +++++++++-
+ 2 files changed, 34 insertions(+), 16 deletions(-)
+
+diff --git a/libbpf_android/BpfMapTest.cpp b/libbpf_android/BpfMapTest.cpp
+index 895dda6..94d273e 100644
+--- a/libbpf_android/BpfMapTest.cpp
++++ b/libbpf_android/BpfMapTest.cpp
+@@ -52,7 +52,13 @@ constexpr const char PINNED_MAP_PATH[] = "/sys/fs/bpf/testMap";
+ class BpfMapTest : public testing::Test {
+   protected:
+     BpfMapTest() {}
+-    int mMapFd;
++
++    // SetUp() will always populate this with a map, but only some tests will use it.
++    // They may use it once via 'mMapFd.release()', or multiple times via 'dup(mMapFd)'
++    // to initialize a BpfMap object.
++    // If it's not used or only dup'ed then TearDown() will close() it, otherwise
++    // whoever got ownership via mMapFd.release() will close() it - possibly much earlier.
++    unique_fd mMapFd;
+ 
+     void SetUp() {
+         SKIP_IF_BPF_NOT_SUPPORTED;
+@@ -61,9 +67,9 @@ class BpfMapTest : public testing::Test {
+         if (!access(PINNED_MAP_PATH, R_OK)) {
+             EXPECT_EQ(0, remove(PINNED_MAP_PATH));
+         }
+-        mMapFd = createMap(BPF_MAP_TYPE_HASH, sizeof(uint32_t), sizeof(uint32_t), TEST_MAP_SIZE,
+-                           BPF_F_NO_PREALLOC);
+-        EXPECT_LE(0, mMapFd);
++        mMapFd.reset(createMap(BPF_MAP_TYPE_HASH, sizeof(uint32_t), sizeof(uint32_t), TEST_MAP_SIZE,
++                               BPF_F_NO_PREALLOC));
++        ASSERT_LE(0, mMapFd);
+     }
+ 
+     void TearDown() {
+@@ -72,7 +78,8 @@ class BpfMapTest : public testing::Test {
+         if (!access(PINNED_MAP_PATH, R_OK)) {
+             EXPECT_EQ(0, remove(PINNED_MAP_PATH));
+         }
+-        close(mMapFd);
++
++        mMapFd.reset(-1);  // close(mMapFd) if still open
+     }
+ 
+     void checkMapInvalid(BpfMap<uint32_t, uint32_t>& map) {
+@@ -117,7 +124,7 @@ TEST_F(BpfMapTest, constructor) {
+     BpfMap<uint32_t, uint32_t> testMap1;
+     checkMapInvalid(testMap1);
+ 
+-    BpfMap<uint32_t, uint32_t> testMap2(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap2(mMapFd.release());
+     checkMapValid(testMap2);
+ 
+     BpfMap<uint32_t, uint32_t> testMap3(BPF_MAP_TYPE_HASH, TEST_MAP_SIZE, BPF_F_NO_PREALLOC);
+@@ -127,7 +134,7 @@ TEST_F(BpfMapTest, constructor) {
+ TEST_F(BpfMapTest, basicHelpers) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+-    BpfMap<uint32_t, uint32_t> testMap(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap(mMapFd.release());
+     uint32_t key = TEST_KEY1;
+     uint32_t value_write = TEST_VALUE1;
+     writeToMapAndCheck(testMap, key, value_write);
+@@ -144,21 +151,21 @@ TEST_F(BpfMapTest, reset) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+     BpfMap<uint32_t, uint32_t> testMap;
+-    testMap.reset(mMapFd);
++    testMap.reset(mMapFd.release());
+     uint32_t key = TEST_KEY1;
+     uint32_t value_write = TEST_VALUE1;
+     writeToMapAndCheck(testMap, key, value_write);
++
+     testMap.reset();
+     checkMapInvalid(testMap);
+-    unique_fd invalidFd(mMapFd);
+-    ASSERT_GT(0, findMapEntry(invalidFd, &key, &value_write));
++    ASSERT_GT(0, findMapEntry(testMap.getMap(), &key, &value_write));
+     ASSERT_EQ(EBADF, errno);
+ }
+ 
+ TEST_F(BpfMapTest, moveConstructor) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+-    BpfMap<uint32_t, uint32_t> testMap1(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap1(mMapFd.release());
+     BpfMap<uint32_t, uint32_t> testMap2;
+     testMap2 = std::move(testMap1);
+     uint32_t key = TEST_KEY1;
+@@ -188,7 +195,7 @@ TEST_F(BpfMapTest, SetUpMap) {
+ TEST_F(BpfMapTest, iterate) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+-    BpfMap<uint32_t, uint32_t> testMap(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap(mMapFd.release());
+     populateMap(TEST_MAP_SIZE, testMap);
+     int totalCount = 0;
+     int totalSum = 0;
+@@ -208,7 +215,7 @@ TEST_F(BpfMapTest, iterate) {
+ TEST_F(BpfMapTest, iterateWithValue) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+-    BpfMap<uint32_t, uint32_t> testMap(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap(mMapFd.release());
+     populateMap(TEST_MAP_SIZE, testMap);
+     int totalCount = 0;
+     int totalSum = 0;
+@@ -230,7 +237,7 @@ TEST_F(BpfMapTest, iterateWithValue) {
+ TEST_F(BpfMapTest, mapIsEmpty) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+-    BpfMap<uint32_t, uint32_t> testMap(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap(mMapFd.release());
+     expectMapEmpty(testMap);
+     uint32_t key = TEST_KEY1;
+     uint32_t value_write = TEST_VALUE1;
+@@ -262,7 +269,7 @@ TEST_F(BpfMapTest, mapIsEmpty) {
+ TEST_F(BpfMapTest, mapClear) {
+     SKIP_IF_BPF_NOT_SUPPORTED;
+ 
+-    BpfMap<uint32_t, uint32_t> testMap(mMapFd);
++    BpfMap<uint32_t, uint32_t> testMap(mMapFd.release());
+     populateMap(TEST_MAP_SIZE, testMap);
+     auto isEmpty = testMap.isEmpty();
+     ASSERT_TRUE(isOk(isEmpty));
+diff --git a/libbpf_android/include/bpf/BpfMap.h b/libbpf_android/include/bpf/BpfMap.h
+index d47698e..a894b57 100644
+--- a/libbpf_android/include/bpf/BpfMap.h
++++ b/libbpf_android/include/bpf/BpfMap.h
+@@ -46,8 +46,19 @@ namespace bpf {
+ template <class Key, class Value>
+ class BpfMap {
+   public:
+-    BpfMap<Key, Value>() : mMapFd(-1){};
++    BpfMap<Key, Value>() {};
+     explicit BpfMap<Key, Value>(int fd) : mMapFd(fd){};
++
++    // We could technically implement this constructor either with
++    //   : mMapFd(dup(fd)) {}        // fd valid in caller, we have our own local copy
++    // or
++    //   : mMapFd(fd.release()) {}   // fd no longer valid in caller, we 'stole' it
++    //
++    // However, I think we're much better off with a compile time failure, since
++    // it's better for whoever passes in a unique_fd to think twice about whether
++    // they're trying to pass in ownership or not.
++    explicit BpfMap<Key, Value>(base::unique_fd fd) = delete;
++
+     BpfMap<Key, Value>(bpf_map_type map_type, uint32_t max_entries, uint32_t map_flags) {
+         int map_fd = createMap(map_type, sizeof(Key), sizeof(Value), max_entries, map_flags);
+         if (map_fd < 0) {
+
