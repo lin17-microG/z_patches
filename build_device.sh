@@ -39,7 +39,7 @@ source build/envsetup.sh
 # ------
 export USE_CCACHE=1
 export CCACHE_EXEC=/usr/bin/ccache
-/usr/bin/ccache -M 50G
+/usr/bin/ccache -M 65G
 
 # Normalize build metadata
 export KBUILD_BUILD_USER=android
