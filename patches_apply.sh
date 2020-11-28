@@ -68,6 +68,11 @@ patch -p1 < $THISDIR/patch_201_bt.patch
 echo "-"
 cd $TOPDIR
 
+cd system/extras
+echo "Patching $PWD (fscrypt: pad filenames to 32 bytes)"
+patch -p1 < $THISDIR/patch_202_extras.patch
+echo "-"
+cd $TOPDIR
 
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)

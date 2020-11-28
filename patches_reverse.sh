@@ -32,11 +32,12 @@ clear_set external/neven
 clear_set frameworks/opt/net/wifi
 clear_set frameworks/rs
 clear_set frameworks/ex
+clear_set hardware/qcom-caf/common
+clear_set lineage-sdk
 clear_set packages/apps/Bluetooth
 clear_set packages/apps/FMRadio
 clear_set packages/apps/Terminal
-clear_set hardware/qcom-caf/common
-clear_set lineage-sdk
+clear_set system/extras
 clear_set vendor/nxp/opensource/commonsys/packages/apps/Nfc
 clear_set vendor/qcom/opensource/fm-commonsys
 clear_set vendor/qcom/opensource/libfmjni
