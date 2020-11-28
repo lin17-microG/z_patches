@@ -55,6 +55,12 @@ patch -p1 < $THISDIR/patch_103_Trebuchet.patch
 echo "-"
 cd $TOPDIR
 
+cd system/bpf
+echo "Patching $PWD (fix broken double close in BpfMapTest.cpp)"
+patch -p1 < $THISDIR/patch_300_bpf.patch
+echo "-"
+cd $TOPDIR
+
 
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)
