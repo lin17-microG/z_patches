@@ -31,6 +31,12 @@ patch -p1 < $THISDIR/patch_050_device-common.patch
 echo "-"
 cd $TOPDIR
 
+cd external/openssh
+echo "Patching $PWD (Fix build)"
+patch -p1 < $THISDIR/patch_200_openssh.patch
+echo "-"
+cd $TOPDIR
+
 cd packages/apps/Camera2
 echo "Patching $PWD (Disable location tagging by default)"
 patch -p1 < $THISDIR/patch_100_Camera2.patch

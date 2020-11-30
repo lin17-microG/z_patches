@@ -18,6 +18,7 @@ cd ..
 TOPDIR=$PWD
 
 clear_set device/common
+clear_set external/openssh
 clear_set packages/apps/Camera2
 clear_set packages/apps/Dialer
 clear_set packages/apps/SetupWizard

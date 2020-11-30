@@ -1,0 +1,24 @@
+From 401e659055c098bd23129fc6b1c8373f9178a8f3 Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Sat, 28 Nov 2020 13:58:23 +0100
+Subject: [PATCH] Fix Build EVP_PKEY_GET0_RSA
+
+---
+ openbsd-compat/openssl-compat.h | 1 +
+ 1 files changed, 1 insertions(+)
+
+diff --git a/openbsd-compat/openssl-compat.h b/openbsd-compat/openssl-compat.h
+index a7981640..33f0e2e1 100644
+--- a/openbsd-compat/openssl-compat.h
++++ b/openbsd-compat/openssl-compat.h
+@@ -217,6 +217,7 @@ int RSA_meth_set_priv_dec(RSA_METHOD *meth, int (*priv_dec)(int flen,
+ int RSA_meth_set_finish(RSA_METHOD *meth, int (*finish)(RSA *rsa));
+ #endif /* HAVE_RSA_METH_SET_FINISH */
+ 
++#define HAVE_EVP_PKEY_GET0_RSA
+ #ifndef HAVE_EVP_PKEY_GET0_RSA
+ RSA *EVP_PKEY_get0_RSA(EVP_PKEY *pkey);
+ #endif /* HAVE_EVP_PKEY_GET0_RSA */
+-- 
+2.11.0
+
