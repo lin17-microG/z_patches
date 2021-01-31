@@ -9,18 +9,18 @@ Change-Id: I97f81ae6e3f843ca02781f3299d6c50277a72d16
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/service/jni/com_android_server_wifi_WifiNative.cpp b/service/jni/com_android_server_wifi_WifiNative.cpp
-index 09a5ebf7c..18ff87517 100644
+index 262357ac6..90fd2d2cf 100644
 --- a/service/jni/com_android_server_wifi_WifiNative.cpp
 +++ b/service/jni/com_android_server_wifi_WifiNative.cpp
-@@ -77,7 +77,7 @@ static jbyteArray android_net_wifi_readKernelLog(JNIEnv *env, jclass cls) {
+@@ -76,7 +76,7 @@ static jbyteArray android_net_wifi_readKernelLogNative(JNIEnv *env, jclass cls)
  /*
   * JNI registration.
   */
 -static JNINativeMethod gWifiMethods[] = {
 +static const JNINativeMethod gWifiMethods[] = {
-     /* name, signature, funcPtr */
-     {"readKernelLogNative", "()[B", (void*)android_net_wifi_readKernelLog},
+     NATIVE_METHOD(android_net_wifi, readKernelLogNative, "()[B"),
  };
+
 -- 
 2.11.0
 
