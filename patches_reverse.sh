@@ -35,7 +35,6 @@ clear_set frameworks/rs
 clear_set frameworks/ex
 clear_set hardware/qcom-caf/common
 clear_set lineage-sdk
-clear_set packages/apps/Bluetooth
 clear_set packages/apps/FMRadio
 clear_set packages/apps/Terminal
 clear_set system/extras
