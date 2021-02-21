@@ -8,7 +8,6 @@ external/neven:patch_704_neven.patch
 frameworks/opt/net/wifi:patch_705_opt-net-wifi.patch
 frameworks/rs:patch_706_rs.patch
 frameworks/ex:patch_707_ex.patch
-packages/apps/Bluetooth:patch_708_Bluetooth.patch
 packages/apps/FMRadio:patch_709_FMRadio.patch
 packages/apps/Terminal:patch_710_Terminal.patch
 hardware/qcom-caf/common:patch_711_qc-common.patch
