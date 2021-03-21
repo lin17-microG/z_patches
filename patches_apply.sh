@@ -48,13 +48,6 @@ patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
 
-cd packages/apps/Trebuchet
-echo "Patching $PWD (Add Bromite to 'hot seat')"
-patch -p1 < $THISDIR/patch_103_Trebuchet.patch
-echo "-"
-cd $TOPDIR
-
-
 cd external/openssh
 echo "Patching $PWD (hardened malloc compatibility fix)"
 patch -p1 < $THISDIR/patch_200_openssh.patch
