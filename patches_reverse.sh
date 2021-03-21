@@ -22,7 +22,6 @@ clear_set external/openssh
 clear_set packages/apps/Camera2
 clear_set packages/apps/Dialer
 clear_set packages/apps/SetupWizard
-clear_set packages/apps/Trebuchet
 clear_set system/bpf
 
 clear_set external/ant-wireless/ant_native

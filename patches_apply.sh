@@ -54,12 +54,6 @@ patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
 
-cd packages/apps/Trebuchet
-echo "Patching $PWD (Add Bromite to 'hot seat')"
-patch -p1 < $THISDIR/patch_103_Trebuchet.patch
-echo "-"
-cd $TOPDIR
-
 cd system/bpf
 echo "Patching $PWD (fix broken double close in BpfMapTest.cpp)"
 patch -p1 < $THISDIR/patch_300_bpf.patch
