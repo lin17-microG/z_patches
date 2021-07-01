@@ -17,6 +17,8 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
+clear_set build/make
+clear_set build/soong
 clear_set device/common
 clear_set packages/apps/Camera2
 clear_set packages/apps/Dialer

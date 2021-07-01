@@ -24,6 +24,16 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
+cd build/make
+echo "Patching $PWD (-fwrapv compiler flag)"
+patch -p1 < $THISDIR/patch_030_build.patch
+cd $TOPDIR
+cd build/soong
+echo "Patching $PWD (-fwrapv compiler flag)"
+patch -p1 < $THISDIR/patch_031_soong.patch
+echo "-"
+cd $TOPDIR
+
 cd device/common
 echo "Patching $PWD (Use https f. common GPS configuration)"
 patch -p1 < $THISDIR/patch_050_device-common.patch
