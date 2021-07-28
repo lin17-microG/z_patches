@@ -9,6 +9,7 @@ frameworks/opt/net/wifi:patch_705_opt-net-wifi.patch
 frameworks/rs:patch_706_rs.patch
 frameworks/ex:patch_707_ex.patch
 packages/apps/FMRadio:patch_709_FMRadio.patch
+packages/apps/Gallery2:patch_716_Gallery2.patch
 packages/apps/Terminal:patch_710_Terminal.patch
 hardware/qcom-caf/common:patch_711_qc-common.patch
 lineage-sdk:patch_712_lineage-sdk.patch
