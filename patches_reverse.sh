@@ -27,7 +27,6 @@ clear_set system/bpf
 clear_set external/ant-wireless/ant_native
 clear_set external/conscrypt
 clear_set external/neven
-clear_set frameworks/opt/net/wifi
 clear_set frameworks/rs
 clear_set frameworks/ex
 clear_set packages/apps/FMRadio

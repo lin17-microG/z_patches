@@ -5,7 +5,6 @@ cat <<EOF
 external/ant-wireless/ant_native:patch_702_ant-wireless.patch
 external/conscrypt:patch_703_conscrypt.patch
 external/neven:patch_704_neven.patch
-frameworks/opt/net/wifi:patch_705_opt-net-wifi.patch
 frameworks/rs:patch_706_rs.patch
 frameworks/ex:patch_707_ex.patch
 packages/apps/FMRadio:patch_709_FMRadio.patch
